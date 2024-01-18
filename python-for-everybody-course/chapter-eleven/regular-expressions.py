@@ -49,3 +49,24 @@ for line in hand:
 
 * We fine-tune what is matched by adding special characters to the strings
 '''
+
+#Wild-Card Characters
+'''
+* The dot character matches any character
+* If you add the asterisk character, the character is "any number of times"
+
+Example-1:
+pattern -> "^X.*:"
+X-Sieve: CMU Sieve 2.3
+X-DSPAM-Result: Innocent
+X-DSPAM-Confidence: 0.84.75
+X-Content-Type-Message-Body: text/plain
+(All texts matched until ":" character)
+
+Example-2:
+pattern -> "^X-\S+:"
+X-Sieve: CMU Sieve 2.3
+X-DSPAM-Result: Innocent
+X-Plane is behind schedule: two weeks
+(Third one did not matched)
+'''
