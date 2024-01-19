@@ -70,3 +70,54 @@ X-DSPAM-Result: Innocent
 X-Plane is behind schedule: two weeks
 (Third one did not matched)
 '''
+
+#Matching and Extracting Data
+'''
+* re.search() returns a True/False depending on whether the string matches the regular expression
+* If we actually want the matching strings to be extracted, we use re.findall()
+'''
+
+import re
+x = 'My 2 favorite numbers are 19 and 42'
+y = re.findall('[0-9]+',x)
+print(y) #['2', '19', '42']
+
+'''
+* When we use re.findall(), it returns a list of zero or more sub-strings that match the regular expression
+'''
+
+y = re.findall('[AEIOU]+',x)
+print(y) #[]
+
+#Warning: Greedy Matching
+'''
+* The repeat characters (* and +) push outward in both directions (greedy) to match largest possible string
+'''
+
+x = 'From: Using the : character'
+y = re.findall('^F.+:', x)
+print(y) #['From: Using the :']
+
+#Non-Greedy Matching
+'''
+* Not all regular expression repeat codes are greedy! If you add a ? character, the + and * chill out a bit
+'''
+
+y = re.findall('^F.+?:', x)
+print(y) #['From:']
+
+#Fine-Tuning String Extraction
+'''
+* You can refine the match for re.findall() and separately determine which portion of the match is to be extracted by using parentheses
+'''
+
+x = 'From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008'
+y = re.findall('\S+@\S+', x)
+print(y) #['stephen.marquard@uct.ac.za']
+
+'''
+* Parentheses are not part of the match-but they tell where to start and stop what string to extract
+'''
+
+y = re.findall('From (\S+@\S+)',x)
+print(y) #['stephen.marquard@uct.ac.za']
