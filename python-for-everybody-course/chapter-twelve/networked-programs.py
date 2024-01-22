@@ -81,7 +81,7 @@ htttps://example.com/page.htm
 * Standards are called "RFCs" - "Request for Comments"
 '''
 
-#Making a HTPP request
+#Making an HTPP request
 '''
 * Connect to the server like "www.example.com"
 * Request a document (or the default document)
