@@ -77,3 +77,17 @@ second_result_factorial = calculate_factorial2(int(user_input))
 
 print(first_result_factorial)
 print(second_result_factorial)
+
+#QuickSort
+def quicksort(arr) :
+    if len(arr) <= 1:
+        return arr
+    else :
+        pivot = arr[0]
+        lesser = [x for x in arr[1:] if x <= pivot]
+        greater = [x for x in arr[1:] if x > pivot]
+        return quicksort(lesser) + [pivot] + quicksort(greater)
+
+list = [64, 34, 25, 12, 22, 11, 90]
+sorted_list = quicksort(list)
+print("Sıralanmış Liste:", sorted_list)
