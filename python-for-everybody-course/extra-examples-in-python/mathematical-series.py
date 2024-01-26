@@ -91,3 +91,22 @@ def quicksort(arr) :
 list = [64, 34, 25, 12, 22, 11, 90]
 sorted_list = quicksort(list)
 print("Sıralanmış Liste:", sorted_list)
+
+#Prime Number
+
+def is_prime(n):
+    if n <= 1:
+        return False
+        
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
+user_input = int(input("Please enter a number ->"))
+
+if is_prime(user_input) : 
+    print(user_input, "is a prime number.")
+else :
+    print(user_input, "is not a prime number")
