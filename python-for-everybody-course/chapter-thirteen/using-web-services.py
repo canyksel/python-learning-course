@@ -137,3 +137,106 @@ for item in lst :
  <xs:element name="prize" type="xs:decimal" />
  <xs:element name="weeks" type="xs:integer" />
 '''
+
+#Google Geo API example:
+'''
+import urllib.request, urllib.parse, urllib.error
+import json
+
+serviceurl = 'https://maps.googleapis.com/maps/api/geocode/json?'
+
+while True :
+    address = input('Enter a location: ')
+    if len(address) < 1 : break
+
+    url = serviceurl + urllib.parse.urlencode({'address': address})
+
+    print('Retrieving', url)
+    uh = urllib.request.urlopen(url)
+    data = uh.read().decode()
+    print('Retrieved', len(data), 'characters')
+
+    try:
+        js = json.loads(data)
+    except:
+        js = None
+    
+    if not js or 'status' not in js or js['status'] != 'OK':
+        print('==== Failure To Retrieve ====')
+        print(data)
+        continue
+
+    lat = js['results'][0]["geometry"]["location"]["lat"]
+    lng = js['results'][0]["geometry"]["location"]["lng"]
+    print('lat', lat, 'lng', lng)
+    location = js["results"][0]["formatted_address"]
+    print(location)
+
+'''
+
+#API Security and Rate Limiting
+'''
+* The compute resources to run these APIs are not "free"
+* The data provided by these APIs is usually valuable
+* The data providers might limit the number of requests per day, demand an API "key" or even charge for usage
+* They might change the rules as things progress
+
+#Example:
+
+import urllib.request, urllib.parse, urllib.error
+import twurl
+import json
+
+TWITTER_URL = 'https://api.twitter.com/l.l/friends/list.json'
+
+while True:
+    print('')
+    acct  = input('Enter Twitter Acconunt:')
+    if(len(acct) < 1) : break
+    url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '5'})
+    print('Retrieving', url)
+    connection = urllib.request.urlopen(url)
+    data = connection.read().decode()
+    headers = dict(connection.getheaders())
+    print('Remaining', headers['x-rate-limit-remaining'])
+    js = json.loads(data)
+    print(json.dumps(js, indent=4))
+    
+    for u in js['users']:
+        print(u['screen_name'])
+        s = u['status']['text']
+        print('  ', s[:50])
+
+
+import urllib.request, urllib.parse, urllib.error
+import oauth
+import hidden
+
+# https://apps.twitter.com/
+# Create App and get the four strings, put them in hidden.py
+
+def augment(url, parameters):
+    secrets = hidden.oauth()
+    consumer = oauth.OAuthConsumer(secrets['consumer_key'],
+                                   secrets['consumer_secret'])
+    token = oauth.OAuthToken(secrets['token_key'], secrets['token_secret'])
+
+    oauth_request = oauth.OAuthRequest.from_consumer_and_token(consumer,
+                    token=token, http_method='GET', http_url=url,
+                    parameters=parameters)
+    oauth_request.sign_request(oauth.OAuthSignatureMethod_HMAC_SHA1(),
+                               consumer, token)
+    return oauth_request.to_url()
+
+
+def test_me():
+    print('* Calling Twitter...')
+    url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json',
+                  {'screen_name': 'drchuck', 'count': '2'})
+    print(url)
+    connection = urllib.request.urlopen(url)
+    data = connection.read()
+    print(data)
+    headers = dict(connection.getheaders())
+    print(headers)
+'''
