@@ -9,3 +9,43 @@ a.append(x)
 * list.pop([i]) -> Remove the item at the given position in the list, and return it. If no index is specified, a.pop() removes and returns the last item in the list. (The square brackets around the i in the method signature denote
 that the parameter is optional, not that you should type square brackets at that position. You will see this notation frequently in the Python Library Reference.)
 '''
+
+#Example
+
+fruits = ['apple','banana','orange']
+cars = ['Mercedes','Volswagen','BMW','Seat']
+
+list_one = list()
+list_one.append(fruits)
+list_one.append(cars)
+
+for item in list_one :
+    print('List-1 ->',item)
+
+fruits.extend(cars)
+list_one.append(fruits)
+
+for item in list_one :
+    print('List-2 ->',item)
+
+list_one.insert(len(list_one),'TOGG')
+list_one.insert(0,'cherry')
+
+for item in list_one :
+    print('List-3 ->',item)
+
+#Object
+'''
+* An Object is a bit of self-contained Code and Data
+* A key aspect of the Object approach is to break the problem into smaller understandable parts (divide and conquer)
+* Objects have boundaries that allow us to ignore un-needed detail
+* We have been using objects all along: String Objects, Integer Objects, Dictionary Objects, List Objects
+'''
+
+#Defitions
+'''
+* Class - a template - Dog
+* Method or Message - A defined capability of a class - bark()
+* Field or attribute - A bit of data in a class - length
+* Object or Instance - A particular instance of a class - Lassie
+'''
