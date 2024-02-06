@@ -98,3 +98,37 @@ SELECT * FROM Users ORDER BY name DESC
 #     print(str(row[0]), row[1])
 
 # cur.close()
+
+#Building a Data Model
+'''
+* Drawing a picture of the data objects for our application and then figuring out how to represent the objects and their relationships
+* Basic Rule: Don't put the same string data in twice - use a relationship instead
+* When there is one thing in the "real world" there should be one copy of that thing in the database
+* Once we define objects, we need to define the relationshipsh between objects
+'''
+
+#Database Normalization (3NF)
+'''
+* There is *tons" of database theory - way too much to understand without excessive predicate calculus
+* Do not replicate data - reference data - point at data
+* Use integers for keys and for references
+* Add a special "key" column to each table which we will make references to. By convention, many programmers call this column "id"
+
+#Integer Reference Pattern
+* We use integers to reference rows in another table
+    * For example ->artist_id, category_id, user_id
+
+#Three Kinds of Keys
+* Primary Key - Generally an integer auto-increment field
+* Logical Key - What the outside world uses for lookup
+* Foreign Key - Generally an integer by pointing to a row in another table
+
+#Key Rules
+* Never use your logical key as the primary key
+* Logical keys can and do change, albeit slowly
+* Relationships that are based on matching string fields are less efficient than integers
+
+#Foreign Keys
+* A foreign key is when a table has a column that contains a key which points to the primary key of another table.
+* When all primary keys are integers, then all foreign keys are integers - this is good - very good
+'''
